@@ -26,7 +26,7 @@ artifacts = [
 
 
 # Prepare the sample Alert
-sourceRef = str(uuid.uuid4())[0:6]
+sourceRef = str(uuid.uuid4())[:6]
 alert = Alert(title='<CUSTOMIZE THE TITLE>',
               tlp=2,
               tags=['<add tag here>'],
@@ -46,16 +46,16 @@ if response.status_code == 201:
     print('')
     id = response.json()['id']
 else:
-    print('ko: {}/{}'.format(response.status_code, response.text))
+    print(f'ko: {response.status_code}/{response.text}')
     sys.exit(0)
 
 
 # Get all the details of the created alert
-print('Get created alert {}'.format(id))
+print(f'Get created alert {id}')
 print('-----------------------------')
 response = api.get_alert(id)
 if response.status_code == requests.codes.ok:
     print(json.dumps(response.json(), indent=4, sort_keys=True))
     print('')
 else:
-    print('ko: {}/{}'.format(response.status_code, response.text))
+    print(f'ko: {response.status_code}/{response.text}')
